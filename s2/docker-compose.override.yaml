@@ -1,0 +1,43 @@
+services:
+  api:
+    environment:
+      OPENAI_API_KEY: ${S2_AI_GATEWAY_API_KEY}
+      OPENAI_BASE_URL: ${S2_AI_GATEWAY_BASE_URL:-http://host.docker.internal:8787/v1}
+      MODEL_NAME: ${S2_AI_GATEWAY_MODEL:-fast}
+      NUM_WORKERS_PER_QUEUE: ${NUM_WORKERS_PER_QUEUE:-2}
+      CRAWL_CONCURRENT_REQUESTS: ${CRAWL_CONCURRENT_REQUESTS:-3}
+      MAX_CONCURRENT_JOBS: ${MAX_CONCURRENT_JOBS:-2}
+      BROWSER_POOL_SIZE: ${BROWSER_POOL_SIZE:-2}
+    cpus: 1.5
+    mem_limit: 2G
+    memswap_limit: 2G
+
+  playwright-service:
+    environment:
+      MAX_CONCURRENT_PAGES: ${CRAWL_CONCURRENT_REQUESTS:-3}
+    cpus: 1.5
+    mem_limit: 2G
+    memswap_limit: 2G
+
+  redis:
+    volumes:
+      - s2_firecrawl_redis:/data
+
+  rabbitmq:
+    volumes:
+      - s2_firecrawl_rabbitmq:/var/lib/rabbitmq
+
+  nuq-postgres:
+    volumes:
+      - s2_firecrawl_postgres:/var/lib/postgresql/data
+
+  foundationdb:
+    profiles: ["fdb"]
+
+  foundationdb-init:
+    profiles: ["fdb"]
+
+volumes:
+  s2_firecrawl_redis:
+  s2_firecrawl_rabbitmq:
+  s2_firecrawl_postgres:
