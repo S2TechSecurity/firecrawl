@@ -30,6 +30,18 @@ function App() {
       ) : (
         <FirecrawlComponent />
       )}
+      <div
+        data-s2-signature="true"
+        aria-label="Built by S2 Tech"
+        className="mx-auto mt-8 flex w-fit items-center gap-2 border-t border-slate-200/20 px-3 pt-4 text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-500 opacity-65"
+      >
+        <span
+          aria-hidden="true"
+          className="h-[20px] w-[32px] bg-contain bg-center bg-no-repeat"
+          style={{ backgroundImage: 'url("https://s2tech.co.za/assets/brand/s2-icon-runtime.png")' }}
+        />
+        <span>Built by S2</span>
+      </div>
     </>
   );
 }
